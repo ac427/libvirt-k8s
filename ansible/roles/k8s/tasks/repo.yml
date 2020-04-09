@@ -1,0 +1,23 @@
+- name: kubernetes
+  yum_repository:
+    description: kubernetes
+    name: kubernetes
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
+    gpgcheck: yes
+    gpgkey:
+      - https://packages.cloud.google.com/yum/doc/yum-key.gpg
+      - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    repo_gpgcheck: yes
+    enabled: yes
+
+- name: docker-ce
+  yum_repository:
+    description: Docker CE Stable - $basearch
+    name: docker-ce
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    gpgcheck: yes
+    gpgkey:
+      - https://download.docker.com/linux/centos/gpg
+    repo_gpgcheck: yes
+    enabled: yes
+

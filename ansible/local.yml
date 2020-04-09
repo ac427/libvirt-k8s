@@ -1,0 +1,6 @@
+---
+- name: add repo
+  hosts:
+    - local
+  roles:
+    - local

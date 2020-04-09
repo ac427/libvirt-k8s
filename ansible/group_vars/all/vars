@@ -1,0 +1,8 @@
+---
+sudoers: 
+  - abc
+k8s_admins: 
+  - abc
+ssh_public : ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDLDMi1Hr5oC41oDtau077nnH4Ie5cQD0PGqhdadUihNlXFbKPApZoLgfq/34vYniTYnZuk7J5bEW/RIKoS1jkh1Xe4mLY8vWy1cyKrO27ZZsIsdI14rRrLGXXOocLC3TOnFZQADjbhBy8bGbgYAJjV0i4TApcIzO47wPL7JzwqcFMvgrT+BlmSH2heOYauFrLpt0YY341X32ThI14N0UBYZ2Ssb7xokxqMq3dG9LWAuy6z7ZB6WrUG3QDIEgC+UrcOUmc6d5q0J7aZO/jrZPaNBWnkZWGsKOBrcuqyPq0VNZhrn2xOTYfCX5ywLbFmAw+NCaC45gqe8MvaCg9f++7 abc@master
+
+root_password : "{{ vault_root_password }}"

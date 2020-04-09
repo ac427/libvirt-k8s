@@ -1,0 +1,2 @@
+# sensitive data
+ssh_private: "{{ vault_ssh_private }}"

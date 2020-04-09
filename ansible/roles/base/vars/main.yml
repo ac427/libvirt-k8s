@@ -1,0 +1,12 @@
+---
+base_packages:
+  - vim
+  - wget
+  - bind-utils
+  - openssh-server 
+  - openssh-clients
+  - epel-release
+  - git 
+  - screen
+  - python3
+  - epel-release

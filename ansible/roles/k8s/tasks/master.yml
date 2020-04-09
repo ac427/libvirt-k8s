@@ -1,0 +1,42 @@
+
+- name: copy ssh private key from the vault
+  copy:
+    content: "{{ssh_private}}"
+    dest: /home/{{ item }}/.ssh/id_rsa
+    mode: '0400'
+    owner: "{{ item }}"
+    group: "{{ item }}"
+  with_items:
+    - "{{ k8s_admins }}"
+
+- name: init cluster
+  command:  
+    cmd: kubeadm init 
+    creates: /etc/kubernetes/kubelet.conf
+  register: results
+
+- name: create dir for user abc
+  file:
+    path: /home/{{ item }}/.kube
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ k8s_admins }}"
+
+- name: Copy file with owner and permissions
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/{{ item }}/.kube/config
+    remote_src: yes
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: '0600'
+  with_items:
+    - "{{ k8s_admins }}"
+
+- name: deploy pod netwrk flannel
+  command:  
+    cmd:  kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    becomes_user: abc
+  when: results.changed

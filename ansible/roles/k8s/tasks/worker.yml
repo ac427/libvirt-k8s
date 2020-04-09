@@ -1,0 +1,5 @@
+
+- name: join workers to cluster
+  command: 
+    cmd: kubeadm join "{{master_ip}}":"{{ k8s_join_port }}" --token "{{ k8s_token }}" --discovery-token-ca-cert-hash "{{ discovery_token_ca_cert_hash }}"
+    creates: /etc/kubernetes/pki/ca.crt

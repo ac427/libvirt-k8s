@@ -1,0 +1,53 @@
+---
+- include: repo.yml
+- include: pkgs.yml
+
+- name: ignore StrictHostKeyChecking for the cluster network;don't do it in production
+  copy:
+    src: root/.ssh/config
+    dest: /home/{{ item }}/.ssh/config
+    mode: '0440'
+    owner: "{{ item }}"
+    group: "{{ item }}"
+  with_items:
+    - "{{ k8s_admins }}"
+
+- name: copy public key
+  copy:
+    content: "{{ ssh_public }}"
+    dest: /home/{{ item }}/.ssh/authorized_keys
+    mode: '0440'
+    owner: "{{ item }}"
+    group: "{{ item }}"
+  with_items:
+    - "{{ k8s_admins }}"
+
+
+- name: Disable swap (if configured).
+  command: swapoff -a
+
+- name: Remove lines with 'swap swap' in fstab
+  lineinfile:
+    path: /etc/fstab
+    state: absent
+    regexp: '\s+swap\s+swap'
+
+- name: enable kubelet
+  service: name=kubelet state=started enabled=yes
+
+- name: enable docker
+  service: name=docker state=started enabled=yes
+
+- sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: '1'
+    sysctl_set: yes
+    state: present
+
+- name: master tasks
+  include: master.yml  
+  when: "'masters' in group_names" 
+
+- name: worker tasks
+  include: worker.yml  
+  when: "'workers' in group_names" 

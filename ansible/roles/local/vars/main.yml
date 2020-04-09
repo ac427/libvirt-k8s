@@ -1,0 +1,12 @@
+---
+base_packages:
+  - epel-release
+  - libvirt
+  - libvirt-client
+  - libvirt-daemon
+  - qemu
+  - virt-install
+  - virt-manager
+  - libvirt-daemon-driver-qemu
+  - libvirt-python
+  - seabios-bin

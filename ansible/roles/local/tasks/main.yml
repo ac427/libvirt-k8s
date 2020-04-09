@@ -1,0 +1,19 @@
+- include: pkgs.yml
+
+- copy: src=network.xml dest=/root/network.xml 
+
+- name: enable and start libvirtd
+  service: name=libvirtd state=started enabled=yes
+
+#issues with virsh modules, using command to nuke and recreate
+- name : create bridge network k8s
+  command:
+    cmd: virsh  net-define /root/network.xml
+    creates: /etc/libvirt/qemu/networks/k8s.xml
+  notify: restart libvirtd
+  register: k8snet_results
+
+- name : start net-start k8s
+  command:
+    cmd: virsh net-start k8s
+  when: k8snet_results.changed

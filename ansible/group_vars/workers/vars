@@ -1,0 +1,6 @@
+master_ip : 192.168.122.94
+k8s_join_port: 6443
+
+# sensitive data
+k8s_token : "{{ vault_k8s_token }}"
+discovery_token_ca_cert_hash : "{{ vault_discovery_token_ca_cert_hash }}"

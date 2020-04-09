@@ -1,0 +1,17 @@
+---
+- name: update root password
+  user:
+    name: root
+    update_password: always
+    password:  "{{ root_password }}"
+
+- name: Add the user 'abc'
+  user:
+    name: abc
+    update_password: always
+    password:  "{{ root_password }}"
+
+- name: add abc to sudoers 
+  template: src=etc/sudoers.d/abc.j2 dest=/etc/sudoers.d/abc mode=0440 validate='visudo -cf %s'
+
+- include: pkgs.yml

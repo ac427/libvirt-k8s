@@ -1,0 +1,7 @@
+---
+- name: add repo
+  hosts:
+    - k8s_cluster
+  roles:
+    - base
+    - k8s
