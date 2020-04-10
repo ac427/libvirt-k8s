@@ -1,6 +1,7 @@
 
 ### create deployment
 
+# example 1
 ```
 [abc@master ~]$ kubectl create deployment --image nginx my-nginx
 deployment.apps/my-nginx created
@@ -192,4 +193,75 @@ Events:
   Normal  Pulled     9m30s  kubelet, worker1   Successfully pulled image "nginx"
   Normal  Created    9m30s  kubelet, worker1   Created container nginx
   Normal  Started    9m30s  kubelet, worker1   Started container nginx
+```
+
+# Example 2
+
+```
+[abc@master ~]$  kubectl apply -f https://raw.githubusercontent.com/ac427/bottle/master/hello-kubernetes.yaml
+service/hello-kubernetes created
+```
+
+```
+[abc@master ~]$ kubectl get service hello-kubernetes
+NAME               TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+hello-kubernetes   LoadBalancer   10.106.57.31   <pending>     5000:31246/TCP   9s
+
+```
+
+### simple hello world bottle app. check https://github.com/ac427/bottle.git
+```
+[abc@master ~]$ curl localhost:31246/hello
+Hello World![abc@master ~]$ 
+
+```
+
+### I made an updte to my bottle repo to print the hostname with Hello World. The default policy looks like it always pulls the latest image 
+
+```
+[abc@master ~]$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+hello-kubernetes-84f5754b49-446r6   1/1     Running   0          9m2s
+hello-kubernetes-84f5754b49-868sm   1/1     Running   0          9m4s
+hello-kubernetes-84f5754b49-f8ww4   1/1     Running   0          8m56s
+my-nginx-9b596c8c4-59hxd            1/1     Running   0          104m
+my-nginx-9b596c8c4-999qb            1/1     Running   0          111m
+[abc@master ~]$ kubectl get pod hello-kubernetes-84f5754b49-446r6 -o yaml   | grep Always
+    imagePullPolicy: Always
+  restartPolicy: Always
+````
+
+### After few minutes
+
+```
+
+[abc@master ~]$ !curl
+curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-446r6[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-f8ww4[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-868sm[abc@master ~]$ curl localhost:31246/hello
+Hello World! from hello-kubernetes-84f5754b49-446r6[abc@master ~]$ 
+
+```
+
+### Image pull in logs
+```
+[abc@master ~]$ kubectl get events | grep Pulling
+25m         Normal    Pulling             pod/hello-kubernetes-5b59d664dd-547xb    Pulling image "anantac/hello-world:latest"
+25m         Normal    Pulling             pod/hello-kubernetes-5b59d664dd-56mgv    Pulling image "anantac/hello-world:latest"
+25m         Normal    Pulling             pod/hello-kubernetes-5b59d664dd-8vmml    Pulling image "anantac/hello-world:latest"
+11m         Normal    Pulling             pod/hello-kubernetes-84f5754b49-446r6    Pulling image "anantac/hello-world:latest"
+11m         Normal    Pulling             pod/hello-kubernetes-84f5754b49-868sm    Pulling image "anantac/hello-world:latest"
+11m         Normal    Pulling             pod/hello-kubernetes-84f5754b49-f8ww4    Pulling image "anantac/hello-world:latest"
+12m         Normal    Pulling             pod/hello-kubernetes-fcd469cb9-5x2pj     Pulling image "anantac/hello-world:latest"
+11m         Normal    Pulling             pod/hello-kubernetes-fcd469cb9-ck5qq     Pulling image "anantac/hello-world:latest"
+12m         Normal    Pulling             pod/hello-kubernetes-fcd469cb9-ssv7m     Pulling image "anantac/hello-world:latest"
 ```
