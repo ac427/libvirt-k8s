@@ -4,3 +4,7 @@ base_packages:
   - kubelet 
   - kubeadm 
   - kubectl
+  - xorg-x11-xauth
+  - xorg-x11-font-utils
+  - xorg-x11-utils
+  - firefox
