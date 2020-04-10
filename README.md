@@ -3,7 +3,7 @@ This repo is just the setup for k8s learning
 
 abc is my user id. you may have to update abc with whatever your id is. 
 
-###ansible to setup laptop for libvirtd to install vms
+### ansible to setup laptop for libvirtd to install vms
 
 ``` 
 [abc@foo ansible]$ ansible-playbook -i hosts -b  -k  local.yml
@@ -35,6 +35,7 @@ localhost                  : ok=5    changed=0    unreachable=0    failed=0    s
 ```
 
 ### setting ups vm scripts
+
 ./master.sh
 ./worker1.sh etc
 
@@ -43,11 +44,10 @@ i am using 3 workers, if you want to add more then make sure to update the netwo
 make sure to store the secrets in ansible vault 
 to get the secerts to join worker to cluster 
 
-###setup k8s master
+### setup k8s master
 First setup the master node. Then get the secrets and update ansible vault ( check group_vars dir). Also, power off the worker nodes before setting up the master
 
 to get discovery_token_ca_cert_hash run below on master node and store it in ansible valut 
-example sha256:token_form_below_command
 
 ```
 
