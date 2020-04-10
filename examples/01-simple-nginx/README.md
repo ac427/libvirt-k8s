@@ -1,17 +1,31 @@
+
+### create deployment
+
+```
 [abc@master ~]$ kubectl create deployment --image nginx my-nginx
 deployment.apps/my-nginx created
+```
 
+### expose port 
 
+```
 [abc@master ~]$ kubectl expose deployment my-nginx --port=80 --type=LoadBalancer
 service/my-nginx exposed
 
+```
 
+### check service status
+
+```
 [abc@master ~]$ kubectl get services
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP        11m
 my-nginx     LoadBalancer   10.105.26.206   <pending>     80:30606/TCP   6s
+```
 
+### test with simple curl
 
+```
 [abc@master ~]$ curl localhost:30606
 <!DOCTYPE html>
 <html>
@@ -38,34 +52,19 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-[abc@master ~]$ 
+```
 
+### scale deployment
+
+```
 [abc@master ~]$ kubectl scale deployment --replicas 2 my-nginx
 deployment.apps/my-nginx scaled
 
+```
 
-[abc@master ~]$ kubectl get pods --all-namespaces
-NAMESPACE     NAME                                       READY   STATUS              RESTARTS   AGE
-default       my-nginx-9b596c8c4-59hxd                   0/1     ContainerCreating   0          9s
-default       my-nginx-9b596c8c4-999qb                   1/1     Running             0          7m33s
-kube-system   calico-kube-controllers-5fc5dbfc47-p2927   1/1     Running             0          13m
-kube-system   calico-node-dxf8w                          1/1     Running             0          13m
-kube-system   calico-node-ptqvc                          1/1     Running             0          13m
-kube-system   calico-node-wqtng                          1/1     Running             0          13m
-kube-system   calico-node-zk6td                          1/1     Running             0          13m
-kube-system   coredns-66bff467f8-bk4r5                   1/1     Running             0          18m
-kube-system   coredns-66bff467f8-jck67                   0/1     Running             0          18m
-kube-system   etcd-master                                1/1     Running             0          18m
-kube-system   kube-apiserver-master                      1/1     Running             0          18m
-kube-system   kube-controller-manager-master             1/1     Running             0          18m
-kube-system   kube-proxy-4bpsn                           1/1     Running             0          17m
-kube-system   kube-proxy-mnl9m                           1/1     Running             0          18m
-kube-system   kube-proxy-p2j7p                           1/1     Running             0          17m
-kube-system   kube-proxy-xwn4f                           1/1     Running             0          17m
-kube-system   kube-scheduler-master                      1/1     Running             0          18m
+### check pod status
 
-
-
+```
 [abc@master ~]$ kubectl get pods --all-namespaces
 NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
 default       my-nginx-9b596c8c4-59hxd                   1/1     Running   0          20s
@@ -85,9 +84,11 @@ kube-system   kube-proxy-mnl9m                           1/1     Running   0    
 kube-system   kube-proxy-p2j7p                           1/1     Running   0          17m
 kube-system   kube-proxy-xwn4f                           1/1     Running   0          17m
 kube-system   kube-scheduler-master                      1/1     Running   0          19m
-[abc@master ~]$ 
+```
 
+### get detail description of pods
 
+```
 [abc@master ~]$ kubectl describe  pods
 Name:         my-nginx-9b596c8c4-59hxd
 Namespace:    default
@@ -191,3 +192,4 @@ Events:
   Normal  Pulled     9m30s  kubelet, worker1   Successfully pulled image "nginx"
   Normal  Created    9m30s  kubelet, worker1   Created container nginx
   Normal  Started    9m30s  kubelet, worker1   Started container nginx
+```
