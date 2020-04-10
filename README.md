@@ -70,7 +70,13 @@ to get k8s_token run below and store it in ansible vault. you need master node p
 ```
 
 ### setup workers
-power on the worker vms and run the same ansible command
+power on the worker vms and run ansible again
+
+```
+
+[abc@foo ansible]$ ansible-playbook -i hosts --ask-vault-pass -b  -k k8s.yml 
+
+```
 
 ```
 
