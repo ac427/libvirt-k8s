@@ -209,14 +209,15 @@ hello-kubernetes   LoadBalancer   10.106.57.31   <pending>     5000:31246/TCP   
 
 ```
 
-### simple hello world bottle app. check https://github.com/ac427/bottle.git
+### simple hello world bottle app. check [repo](https://github.com/ac427/bottle.git)
 ```
 [abc@master ~]$ curl localhost:31246/hello
 Hello World![abc@master ~]$ 
 
 ```
 
-### I made an updte to my bottle repo to print the hostname with Hello World. The default policy looks like it always pulls the latest image 
+### I made an update to my [repo](https://github.com/ac427/bottle.git) to print the hostname with Hello World. 
+The default policy looks like it always pulls the latest image
 
 ```
 [abc@master ~]$ kubectl get pods

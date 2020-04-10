@@ -1,5 +1,6 @@
 # libvirt-k8s
-This repo is just the setup for k8s learning 
+
+Setup k8s cluster on your Linux Machine and use kvms
 
 abc is my user id. you may have to update abc with whatever your id is. 
 
