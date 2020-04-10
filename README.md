@@ -89,3 +89,5 @@ worker2   Ready    <none>   3m35s   v1.18.1
 worker3   Ready    <none>   3m35s   v1.18.1
 
 ```
+
+I will update [hand-on-examples](https://github.com/ac427/libvirt-k8s/tree/master/examples/) as I learn new stuff
