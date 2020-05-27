@@ -1,4 +1,18 @@
 ---
+# core dns is failing talking to libvirt dns
+- name: add cluster nodes to /etc/hosts
+  copy:
+    src: etc/hosts
+    dest: /etc/hosts
+    mode: '0440'
+
+- name: use google dns and update cluster nodes in /etc/hosts
+  copy:
+    src: etc/resolv.conf
+    dest: /etc/resolv.conf
+    mode: '0440'
+    attr: +i 
+
 - include: repo.yml
 - include: pkgs.yml
 
@@ -50,4 +64,4 @@
 
 - name: worker tasks
   include: worker.yml  
-  when: "'workers' in group_names" 
+  when: "'workers' in group_names"
