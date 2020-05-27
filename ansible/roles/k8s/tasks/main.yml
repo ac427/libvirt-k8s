@@ -4,14 +4,13 @@
   copy:
     src: etc/hosts
     dest: /etc/hosts
-    mode: '0440'
+    mode: '0444'
 
-- name: use google dns and update cluster nodes in /etc/hosts
+- name: use google dns in /etc/resolv.conf
   copy:
     src: etc/resolv.conf
     dest: /etc/resolv.conf
-    mode: '0440'
-    attr: +i 
+    mode: '0444'
 
 - include: repo.yml
 - include: pkgs.yml
