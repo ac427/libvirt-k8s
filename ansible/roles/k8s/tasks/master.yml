@@ -15,11 +15,6 @@
     creates: /etc/kubernetes/kubelet.conf
   register: results
 
-- name: apply Calico network plugin
-  command:  
-    cmd:  kubectl apply -f https://docs.projectcalico.org/v3.9/manifests/calico.yaml
-  when: results.changed
-
 - name: create dir for user abc
   file:
     path: /home/{{ item }}/.kube
@@ -39,3 +34,15 @@
     mode: '0600'
   with_items:
     - "{{ k8s_admins }}"
+
+
+- name: Wait 300 seconds for port 6443 to become open on the host, don't start checking for 10 seconds
+  wait_for:
+    port: 6443
+    delay: 10
+    sleep: 20
+
+- name: apply Calico network plugin
+  command:  
+    cmd:  kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
+  when: results.changed

@@ -1,16 +1,16 @@
 ---
 # core dns is failing talking to libvirt dns
-- name: add cluster nodes to /etc/hosts
-  copy:
-    src: etc/hosts
-    dest: /etc/hosts
-    mode: '0444'
+#- name: add cluster nodes to /etc/hosts
+#  copy:
+#    src: etc/hosts
+#    dest: /etc/hosts
+#    mode: '0444'
 
-- name: use google dns in /etc/resolv.conf
-  copy:
-    src: etc/resolv.conf
-    dest: /etc/resolv.conf
-    mode: '0444'
+#- name: use google dns in /etc/resolv.conf
+#  copy:
+#    src: etc/resolv.conf
+#    dest: /etc/resolv.conf
+#    mode: '0444'
 
 - include: repo.yml
 - include: pkgs.yml
@@ -44,6 +44,11 @@
     path: /etc/fstab
     state: absent
     regexp: '\s+swap\s+swap'
+
+- name: add kublet extra args
+  copy:
+    content: "KUBELET_EXTRA_ARGS='--runtime-cgroups=/systemd/system.slice --kubelet-cgroups=/systemd/system.slice'"
+    dest: /etc/sysconfig/kubelet
 
 - name: enable kubelet
   service: name=kubelet state=started enabled=yes

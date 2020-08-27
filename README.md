@@ -70,6 +70,12 @@ to get k8s_token run below and store it in ansible vault. you need master node p
 
 ```
 
+```
+#you can get the same in join command
+kubeadm token create --print-join-command
+
+```
+
 ### setup workers
 power on the worker vms and run ansible again
 
