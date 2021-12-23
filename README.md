@@ -6,8 +6,22 @@ abc is my user id. you may have to update abc with whatever your id is.
 
 ### ansible to setup laptop for libvirtd to install vms
 
+```
+ansible-vault create group_vars/all/vault.yml
+
+```
+update with some root password hash and some dummy ssh private key
+
+```
+vault_root_password: $6$wQ7zDoYV$P2ZDz53NlCyVQxD2okWdpuS4KlBhFATTkGSYMPunrhY54QyUxk1wj/qVzo9Qesr3566XMqeLVS9xTialAF8aU0
+vault_ssh_private : |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIEoQIBAAKCAQEAwywzItR6+aAuNaA7WrtO+55x+CHuXEA9DxqoXWnVIoTZVxWy
+  xxxxxxxxxxxxxxxxxxxxxxxx
+```
+
 ``` 
-[abc@foo ansible]$ ansible-playbook -i hosts -b  -k  local.yml
+[abc@foo ansible]$ ansible-playbook -i hosts -b  -k --ask-vault-pass local.yml
 SSH password: 
 
 PLAY [add repo] ***************************************************************************************************************************************************************************************************
@@ -51,19 +65,7 @@ to get the secerts to join worker to cluster
 manually ssh to master node as root, default password is `passw0rd`
 generate ssh key pair and copy the id_rsa in ansible-vault by running below
 
-```
-ansible-vault create group_vars/all/vault.yml
 
-```
-update with below
-
-```
-vault_root_password: $6$wQ7zDoYV$P2ZDz53NlCyVQxD2okWdpuS4KlBhFATTkGSYMPunrhY54QyUxk1wj/qVzo9Qesr3566XMqeLVS9xTialAF8aU0
-vault_ssh_private : |
-  -----BEGIN RSA PRIVATE KEY-----
-  MIIEoQIBAAKCAQEAwywzItR6+aAuNaA7WrtO+55x+CHuXEA9DxqoXWnVIoTZVxWy
-  xxxxxxxxxxxxxxxxxxxxxxxx
-```
 
 Now run ansible-playboot to setup master node.
 
