@@ -46,6 +46,27 @@ make sure to store the secrets in ansible vault
 to get the secerts to join worker to cluster 
 
 ### setup k8s master
+# Note: power off all the worker nodes except the master node
+
+manually ssh to master node as root, default password is `testing`
+generate ssh key pair and copy the id_rsa in ansible-vault by running below
+
+```
+ansible-vault create group_vars/all/vault.yml
+
+```
+update with below
+
+```
+vault_root_password: $6$wQ7zDoYV$P2ZDz53NlCyVQxD2okWdpuS4KlBhFATTkGSYMPunrhY54QyUxk1wj/qVzo9Qesr3566XMqeLVS9xTialAF8aU0
+vault_ssh_private : |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIEoQIBAAKCAQEAwywzItR6+aAuNaA7WrtO+55x+CHuXEA9DxqoXWnVIoTZVxWy
+  xxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+ansible-playbook -i hosts --ask-vault-pass -b  -k k8s.yml `
+
 First setup the master node. Then get the secrets and update ansible vault ( check group_vars dir). Also, power off the worker nodes before setting up the master
 
 to get discovery_token_ca_cert_hash run below on master node and store it in ansible valut 
@@ -63,9 +84,6 @@ to get k8s_token run below and store it in ansible vault. you need master node p
 [abc@master ~]$ kubeadm  token list | grep bootstrap | awk '{print $1}'
 
 ```
-sample file from `ansible-vault edit group_vars/all/vault.yml`
-
-![Screenshot from 2021-12-23 14-52-53](https://user-images.githubusercontent.com/11317624/147286182-d8b2bdb7-2ccd-43ee-936b-1465b63fe7d2.png)
 
 
 ```
