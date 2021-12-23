@@ -45,4 +45,3 @@
 - name: apply Calico network plugin
   command:  
     cmd:  kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
-  when: results.changed
