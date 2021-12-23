@@ -48,7 +48,7 @@ to get the secerts to join worker to cluster
 ### setup k8s master
 # Note: power off all the worker nodes except the master node
 
-manually ssh to master node as root, default password is `testing`
+manually ssh to master node as root, default password is `passw0rd`
 generate ssh key pair and copy the id_rsa in ansible-vault by running below
 
 ```
