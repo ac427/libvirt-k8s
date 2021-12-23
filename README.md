@@ -65,7 +65,9 @@ vault_ssh_private : |
   xxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-ansible-playbook -i hosts --ask-vault-pass -b  -k k8s.yml `
+Now run ansible-playboot to setup master node.
+
+`ansible-playbook -i hosts --ask-vault-pass -b  -k k8s.yml `
 
 First setup the master node. Then get the secrets and update ansible vault ( check group_vars dir). Also, power off the worker nodes before setting up the master
 
