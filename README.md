@@ -87,13 +87,6 @@ to get k8s_token run below and store it in ansible vault. you need master node p
 
 ```
 
-
-```
-
-[abc@foo ansible]$ ansible-playbook -i hosts --ask-vault-pass -b  -k k8s.yml 
-
-```
-
 ```
 #you can get the same in join command
 kubeadm token create --print-join-command
