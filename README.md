@@ -63,6 +63,10 @@ to get k8s_token run below and store it in ansible vault. you need master node p
 [abc@master ~]$ kubeadm  token list | grep bootstrap | awk '{print $1}'
 
 ```
+sample file from `ansible-vault edit group_vars/all/vault.yml`
+
+![Screenshot from 2021-12-23 14-52-53](https://user-images.githubusercontent.com/11317624/147286182-d8b2bdb7-2ccd-43ee-936b-1465b63fe7d2.png)
+
 
 ```
 
