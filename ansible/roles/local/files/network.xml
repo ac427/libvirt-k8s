@@ -8,25 +8,25 @@
   <bridge name='k8s0' stp='on' delay='0'/>
   <mac address='00:16:3e:65:bf:71'/>
   <domain name='k8s'/>
-  <ip address='192.168.122.1' netmask='255.255.255.0'>
+  <ip address='192.168.123.1' netmask='255.255.255.0'>
     <dhcp>
-      <range start='192.168.122.2' end='192.168.122.254'/>
-      <host mac='52:54:00:8d:5a:af' name='master' ip='192.168.122.94'/>
-      <host mac='52:54:00:d4:53:9f' name='worker1' ip='192.168.122.95'/>
-      <host mac='52:54:00:c9:57:f2' name='worker2' ip='192.168.122.96'/>
-      <host mac='52:54:00:c9:57:f3' name='worker3' ip='192.168.122.97'/>
+      <range start='192.168.123.2' end='192.168.123.254'/>
+      <host mac='52:54:00:8d:5a:af' name='master' ip='192.168.123.94'/>
+      <host mac='52:54:00:d4:53:9f' name='worker1' ip='192.168.123.95'/>
+      <host mac='52:54:00:c9:57:f2' name='worker2' ip='192.168.123.96'/>
+      <host mac='52:54:00:c9:57:f3' name='worker3' ip='192.168.123.97'/>
     </dhcp>
     <dns>
-      <host ip='192.168.122.94'>
+      <host ip='192.168.123.94'>
         <hostname>master</hostname>
       </host>
-      <host ip='192.168.122.95'>
+      <host ip='192.168.123.95'>
         <hostname>worker1</hostname>
       </host>
-      <host ip='192.168.122.96'>
+      <host ip='192.168.123.96'>
         <hostname>worker2</hostname>
       </host>
-      <host ip='192.168.122.97'>
+      <host ip='192.168.123.97'>
         <hostname>worker3</hostname>
       </host>
     </dns>

@@ -1,5 +1,3 @@
-- include: pkgs.yml
-
 - copy: src=network.xml dest=/root/network.xml 
 
 - name: enable and start libvirtd

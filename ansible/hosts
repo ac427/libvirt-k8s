@@ -2,12 +2,12 @@
 localhost
 
 [masters]
-master ansible_host=192.168.122.94
+master ansible_host=192.168.123.94
 
 [workers]
-worker1 ansible_host=192.168.122.95
-worker2 ansible_host=192.168.122.96
-worker3 ansible_host=192.168.122.97
+worker1 ansible_host=192.168.123.95
+worker2 ansible_host=192.168.123.96
+worker3 ansible_host=192.168.123.97
 
 [k8s_cluster:children]
 masters
